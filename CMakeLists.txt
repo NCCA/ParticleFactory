@@ -8,7 +8,6 @@ include_directories(include $ENV{HOME}/NGL/include)
 #the file(GLOB...) allows for wildcard additions of our src dir
 set(SOURCES ${PROJECT_SOURCE_DIR}/src/main.cpp  
 			${PROJECT_SOURCE_DIR}/src/NGLScene.cpp  
-			${PROJECT_SOURCE_DIR}/src/OpenGLWindow.cpp
 			${PROJECT_SOURCE_DIR}/src/Emitter.cpp         
 			${PROJECT_SOURCE_DIR}/src/Particle.cpp        
 			${PROJECT_SOURCE_DIR}/src/Teapot.cpp         
@@ -16,7 +15,6 @@ set(SOURCES ${PROJECT_SOURCE_DIR}/src/main.cpp
 			${PROJECT_SOURCE_DIR}/src/Torus.cpp
 			${PROJECT_SOURCE_DIR}/src/Sphere.cpp          
 			${PROJECT_SOURCE_DIR}/src/Troll.cpp
-
 			${PROJECT_SOURCE_DIR}/include/Emitter.h  
 			${PROJECT_SOURCE_DIR}/include/Particle.h
 			${PROJECT_SOURCE_DIR}/include/Sphere.h           
@@ -24,13 +22,8 @@ set(SOURCES ${PROJECT_SOURCE_DIR}/src/main.cpp
 			${PROJECT_SOURCE_DIR}/include/NGLScene.h         
 			${PROJECT_SOURCE_DIR}/include/ParticleFactory.h  
 			${PROJECT_SOURCE_DIR}/include/Teapot.h
-			${PROJECT_SOURCE_DIR}/include/OpenGLWindow.h     
 			${PROJECT_SOURCE_DIR}/include/ParticleTypeinfo.h 
 			${PROJECT_SOURCE_DIR}/include/Torus.h
-
-
-
-
 )
 
 # see what platform we are on and set platform defines
