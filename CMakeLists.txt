@@ -25,6 +25,8 @@ set(SOURCES ${PROJECT_SOURCE_DIR}/src/main.cpp
 			${PROJECT_SOURCE_DIR}/include/ParticleTypeinfo.h 
 			${PROJECT_SOURCE_DIR}/include/Torus.h
 )
+# use C++ 11
+set(CMAKE_CXX_STANDARD 11)
 
 # see what platform we are on and set platform defines
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
