@@ -5,7 +5,7 @@
 #include <ngl/Random.h>
 #include "Emitter.h"
 
-const ParticleType Teapot::m_type=TEAPOT;
+constexpr ParticleType Teapot::m_type=ParticleType::TEAPOT;
 
 
 Teapot::Teapot(

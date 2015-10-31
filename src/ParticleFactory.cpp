@@ -14,19 +14,19 @@ Particle * ParticleFactory::CreateParticle(
                                           )
 {
 
-  if(_type==TEAPOT)
+  if(_type==ParticleType::TEAPOT)
   {
     return new Teapot(_pos,_dir,_c,_shaderName,_parent);
   }
-  else if(_type==SPHERE)
+  else if(_type==ParticleType::SPHERE)
   {
     return new Sphere(_pos,_dir,_c,_shaderName,_parent);
   }
-  if(_type==TORUS)
+  else if(_type==ParticleType::TORUS)
   {
     return new Torus(_pos,_dir,_c,_shaderName,_parent);
   }
-  if(_type==TROLL)
+  else if(_type==ParticleType::TROLL)
   {
     return new Troll(_pos,_dir,_c,_shaderName,_parent);
   }

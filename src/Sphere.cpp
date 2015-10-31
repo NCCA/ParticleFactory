@@ -7,7 +7,7 @@
 #include <ngl/ShaderLib.h>
 
 // set the type of the particle
-const ParticleType Sphere::m_type=SPHERE;
+constexpr ParticleType Sphere::m_type=ParticleType::SPHERE;
 
 
 Sphere::Sphere(

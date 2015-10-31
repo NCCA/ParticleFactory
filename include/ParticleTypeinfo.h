@@ -1,7 +1,7 @@
-#ifndef __PARTICLETYPEINFO_H__
-#define __PARTICLETYPEINFO_H__
+#ifndef PARTICLETYPEINFO_H__
+#define PARTICLETYPEINFO_H__
 
-enum ParticleType
+enum class ParticleType
 {
   SPHERE,
   TEAPOT,

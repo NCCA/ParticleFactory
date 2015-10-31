@@ -39,16 +39,12 @@ class Emitter
     void draw() const;
     /// @brief add a new particle to the end of the list
     /// @param[in] _type the type of particle to add
-    void addParticle(
-                      ParticleType _type
-                    );
+    void addParticle( ParticleType _type );
     /// @brief remove the last particle from the list
     void removeParticle();
     /// @brief this will update the emit angle of the SPHERE type particle only
     /// @param[in] _a the new emit angle for sphere, will only update once particle is re-born
-    void updateEmitAngle(
-                          GLfloat _a
-                         );
+    void updateEmitAngle(GLfloat _a );
     /// @brief accessor for the number of particles stored in the class
     /// @returns the number of particles
     inline unsigned int getNumParticles()const {return m_numParticles;}
@@ -68,7 +64,7 @@ class Emitter
   private :
     /// @brief the particle list stores a pointer to each particle, these are created by the
     /// particle factory
-    std::vector <Particle *> m_particles;
+    std::vector < std::unique_ptr<Particle>> m_particles;
     /// @brief a pointer to the current camera, this is used for accesing the VP matrix to load to the
     /// shader
     const ngl::Camera *m_cam;

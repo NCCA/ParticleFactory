@@ -35,17 +35,14 @@ NGLScene::NGLScene()
 NGLScene::~NGLScene()
 {
   std::cout<<"Shutting down NGL, removing VAO's and Shaders\n";
-  delete m_emitter;
 }
 
-void NGLScene::resizeGL(int _w, int _h)
+void NGLScene::resizeGL(QResizeEvent *_event)
 {
-
-  // set the viewport for openGL
-  glViewport(0,0,_w,_h);
+  m_width=_event->size().width()*devicePixelRatio();
+  m_height=_event->size().height()*devicePixelRatio();
   // now set the camera size values as the screen size has changed
-  m_cam->setShape(45,(float)_w/_h,0.05,350);
-  update();
+  m_cam.setShape(45.0f,(float)width()/height(),0.05f,350.0f);
 }
 
 
@@ -66,10 +63,10 @@ void NGLScene::initializeGL()
   ngl::Vec3 from(20,20,35);
   ngl::Vec3 to(0,0,0);
   ngl::Vec3 up(0,1,0);
-  m_cam= new ngl::Camera(from,to,up);
+  m_cam.set(from,to,up);
   // set the shape using FOV 45 Aspect Ratio based on Width and Height
   // The final two are near and far clipping planes of 0.5 and 10
-  m_cam->setShape(45,(float)720.0/576.0,0.5,150);
+  m_cam.setShape(45,(float)720.0/576.0,0.5,150);
   // now to load the shader and set the values
   // grab an instance of shader manager
   // now to load the shader and set the values
@@ -108,7 +105,7 @@ void NGLScene::initializeGL()
   // now create our light this is done after the camera so we can pass the
   // transpose of the projection matrix to the light to do correct eye space
   // transformations
-  ngl::Mat4 iv=m_cam->getViewMatrix();
+  ngl::Mat4 iv=m_cam.getViewMatrix();
   iv=iv.inverse();
   iv.transpose();
   light.setTransform(iv);
@@ -122,11 +119,9 @@ void NGLScene::initializeGL()
 
   prim->createTorus("torus",0.2,0.8,20,20);
   // create the default particle inital position
-  m_emitter=new Emitter(m_emitterPos,1000,m_cam);
-  m_text=new ngl::Text(QFont("Arial",14));
+  m_emitter.reset( new Emitter(m_emitterPos,1000,&m_cam) );
+  m_text.reset( new ngl::Text(QFont("Arial",14)));
   m_text->setScreenSize(width(),height());
-  // as re-size is not explicitly called we need to do this.
-  glViewport(0,0,width(),height());
   startTimer(40);
 
 }
@@ -138,6 +133,7 @@ void NGLScene::paintGL()
 {
   // grab an instance of the shader manager
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
+  glViewport(0,0,m_width,m_height);
   // clear the screen and depth buffer
   shader->use("Phong");
 
@@ -170,8 +166,8 @@ void NGLScene::addParticles( int _type)
 {
 switch(_type)
 {
-  case 0 : m_emitter->addParticle(SPHERE); break;
-  case 1 : m_emitter->addParticle(TEAPOT); break;
+  case 0 : m_emitter->addParticle(ParticleType::SPHERE); break;
+  case 1 : m_emitter->addParticle(ParticleType::TEAPOT); break;
 
 }
 
