@@ -1,10 +1,11 @@
-#ifndef __EMITTER_H__
-#define __EMITTER_H__
+#ifndef EMITTER_H__
+#define EMITTER_H__
 
 #include "ParticleFactory.h"
 #include "ParticleTypeinfo.h"
 #include <ngl/Camera.h>
 #include <vector>
+#include <memory>
 
 /// @file Emitter.h
 /// @brief a simple emitter class
