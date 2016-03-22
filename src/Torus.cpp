@@ -5,7 +5,6 @@
 #include <ngl/Random.h>
 #include "Emitter.h"
 
-constexpr ParticleType Torus::m_type=ParticleType::TORUS;
 
 
 Torus::Torus(

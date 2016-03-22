@@ -5,7 +5,6 @@
 #include <ngl/Random.h>
 #include "Emitter.h"
 
-constexpr ParticleType Troll::m_type=ParticleType::TROLL;
 
 
 Troll::Troll(

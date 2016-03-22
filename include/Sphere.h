@@ -48,7 +48,7 @@ class Sphere : public Particle
     /// @brief the current radius for the sphere
 		GLfloat m_radius;
     /// @brief what type of particle this is
-    const static ParticleType m_type;
+    const static ParticleType m_type=ParticleType::SPHERE;
 
  };
 

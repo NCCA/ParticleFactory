@@ -45,7 +45,7 @@ class Torus : public Particle
     /// @brief z rotation increment value
     float m_rotUpdateZ;
     /// @brief what type of particle this is
-    const static ParticleType m_type;
+    const static ParticleType m_type=ParticleType::TORUS;
 
 };
 

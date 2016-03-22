@@ -30,5 +30,5 @@ Particle * ParticleFactory::CreateParticle(
   {
     return new Troll(_pos,_dir,_c,_shaderName,_parent);
   }
-
+  else return nullptr;
 }

@@ -6,8 +6,6 @@
 #include <ngl/Random.h>
 #include <ngl/ShaderLib.h>
 
-// set the type of the particle
-constexpr ParticleType Sphere::m_type=ParticleType::SPHERE;
 
 
 Sphere::Sphere(
