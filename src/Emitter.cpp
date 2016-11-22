@@ -26,7 +26,7 @@ Emitter::Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const ngl::Camera *_
     dir=rng->getRandomVec3();
     c=rng->getRandomColour();
     // choose which input we want
-    which=(int)rng->randomPositiveNumber(4);
+    which=static_cast<int>(rng->randomPositiveNumber(4));
     switch(which)
     {
     // use the factory to create a new particle

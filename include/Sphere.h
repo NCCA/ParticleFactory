@@ -1,5 +1,5 @@
-#ifndef SPHERE_H__
-#define SPHERE_H__
+#ifndef SPHERE_H_
+#define SPHERE_H_
 
 /// @file Sphere.h
 /// @brief A Sphere particle class

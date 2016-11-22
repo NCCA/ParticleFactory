@@ -1,5 +1,5 @@
-#ifndef TROLL_H
-#define TROLL_H
+#ifndef TROLL_H_
+#define TROLL_H_
 
 
 #include "Particle.h"

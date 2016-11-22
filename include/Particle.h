@@ -1,5 +1,5 @@
-#ifndef PARTICLE__
-#define PARTICLE__
+#ifndef PARTICLE_
+#define PARTICLE_
 
 #include <ngl/Camera.h>
 #include <ngl/Vec3.h>

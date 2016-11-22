@@ -1,5 +1,5 @@
-#ifndef TORUS_H__
-#define TORUS_H__
+#ifndef TORUS_H_
+#define TORUS_H_
 
 
 #include "Particle.h"

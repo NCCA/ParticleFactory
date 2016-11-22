@@ -1,5 +1,5 @@
-#ifndef PARTICLETYPEINFO_H__
-#define PARTICLETYPEINFO_H__
+#ifndef PARTICLETYPEINFO_H_
+#define PARTICLETYPEINFO_H_
 
 enum class ParticleType
 {

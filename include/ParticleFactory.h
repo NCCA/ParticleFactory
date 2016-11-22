@@ -1,5 +1,5 @@
-#ifndef PARTICLE_FACTORY_H__
-#define PARTICLE_FACTORY_H__
+#ifndef PARTICLE_FACTORY_H_
+#define PARTICLE_FACTORY_H_
 
 #include "Particle.h"
 

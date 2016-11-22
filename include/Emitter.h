@@ -1,5 +1,5 @@
-#ifndef EMITTER_H__
-#define EMITTER_H__
+#ifndef EMITTER_H_
+#define EMITTER_H_
 
 #include "ParticleFactory.h"
 #include "ParticleTypeinfo.h"

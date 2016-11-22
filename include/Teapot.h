@@ -1,5 +1,5 @@
-#ifndef TEAPOT_H__
-#define TEAPOT_H__
+#ifndef TEAPOT_H_
+#define TEAPOT_H_
 
 
 #include "Particle.h"

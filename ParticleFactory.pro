@@ -20,6 +20,7 @@ SOURCES+= $$PWD/src/Emitter.cpp \
 					$$PWD/src/ParticleFactory.cpp  \
 					$$PWD/src/Torus.cpp \
 					$$PWD/src/NGLScene.cpp  \
+          $$PWD/src/NGLSceneMouseControls.cpp \
 					$$PWD/src/Sphere.cpp \
 					$$PWD/src/Troll.cpp \
 					$$PWD/src/Particle.cpp \
@@ -34,6 +35,7 @@ HEADERS+= $$PWD/include/Emitter.h   \
 					$$PWD/include/Torus.h \
 					$$PWD/include/Particle.h \
 					$$PWD/include/Sphere.h     \
+          $$PWD/include/WindowParams.h \
 					$$PWD/include/Troll.h
 # and add the include dir into the search path for Qt and make
 INCLUDEPATH +=./include
