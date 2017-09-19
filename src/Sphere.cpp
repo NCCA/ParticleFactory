@@ -24,17 +24,17 @@ Sphere::Sphere(
                             _parent
                           )
 {
-  m_emitAngle=360.0;
+  m_emitAngle=360.0f;
 	ngl::Random *rng=ngl::Random::instance();
   // get the angles for emission
   GLfloat theta=ngl::radians(rng->randomNumber(m_emitAngle));
   GLfloat phi=ngl::radians(rng->randomNumber(m_emitAngle));
   // set the
-  m_dir.m_x=sin(theta)*cos(phi);
-  m_dir.m_y=sin(theta)*sin(phi);
-  m_dir.m_z=cos(theta);
+  m_dir.m_x=sinf(theta)*cosf(phi);
+  m_dir.m_y=sinf(theta)*sinf(phi);
+  m_dir.m_z=cosf(theta);
   m_dir.normalize();
-	m_radius=rng->randomPositiveNumber(1.2)+0.1;
+  m_radius=rng->randomPositiveNumber(1.2f)+0.1f;
 }
 
 
@@ -42,12 +42,12 @@ void Sphere::draw() const
 {
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
   (*shader)[m_shaderName]->use();
-  shader->setShaderParam4f("Colour",m_colour.m_r,m_colour.m_g,m_colour.m_b,m_colour.m_a);
+  shader->setUniform("Colour",m_colour);
   ngl::Transformation t;
   t.setPosition(m_pos);
   t.setScale(m_radius,m_radius,m_radius);
   ngl::Mat4 MVP=t.getMatrix()*m_parent->getGlobalTransform()*m_parent->getCamera()->getVPMatrix();
-  shader->setShaderParamFromMat4("MVP",MVP);
+  shader->setUniform("MVP",MVP);
   // get an instance of the VBO primitives for drawing
   ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
   // draw the sphere
@@ -71,11 +71,11 @@ void Sphere::update()
     m_maxLife=rng->randomPositiveNumber(80);
     GLfloat theta=ngl::radians(rng->randomNumber(m_emitAngle));
     GLfloat phi=ngl::radians(rng->randomNumber(m_emitAngle));
-    m_dir.m_x=sin(theta)*cos(phi);
-    m_dir.m_y=sin(theta)*cos(theta);
-    m_dir.m_z=cos(theta);
+    m_dir.m_x=sinf(theta)*cosf(phi);
+    m_dir.m_y=sinf(theta)*cosf(theta);
+    m_dir.m_z=cosf(theta);
     m_dir.normalize();
-    m_radius=rng->randomPositiveNumber(1.2)+0.01;
+    m_radius=rng->randomPositiveNumber(1.2f)+0.01f;
 
 	}
 }

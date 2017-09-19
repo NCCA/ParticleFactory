@@ -40,19 +40,19 @@ void Torus::draw() const
 
   ngl::ShaderLib *shader=ngl::ShaderLib::instance();
   (*shader)[m_shaderName]->use();
-  shader->setShaderParam4f("Colour",m_colour.m_r,m_colour.m_g,m_colour.m_b,m_colour.m_a);
+  shader->setUniform("Colour",m_colour);
 
   ngl::Transformation t;
   t.setPosition(m_pos);
   t.setRotation(m_rotX,m_rotY,m_rotZ);;
   ngl::Mat4 MVP=t.getMatrix()*m_parent->getGlobalTransform()*m_parent->getCamera()->getVPMatrix();
 
-    shader->setShaderParamFromMat4("MVP",MVP);
+  shader->setUniform("MVP",MVP);
 
-    // get an instance of the VBO primitives for drawing
-    ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
-    // draw the sphere
-    prim->draw("torus");
+  // get an instance of the VBO primitives for drawing
+  ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
+  // draw the sphere
+  prim->draw("torus");
 
 }
 
