@@ -46,7 +46,9 @@ void Sphere::draw() const
   ngl::Transformation t;
   t.setPosition(m_pos);
   t.setScale(m_radius,m_radius,m_radius);
-  ngl::Mat4 MVP=t.getMatrix()*m_parent->getGlobalTransform()*m_parent->getCamera()->getVPMatrix();
+  ngl::Mat4 MVP=m_parent->getCamera()->getVPMatrix() *
+                m_parent->getGlobalTransform() *
+                t.getMatrix();
   shader->setUniform("MVP",MVP);
   // get an instance of the VBO primitives for drawing
   ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();

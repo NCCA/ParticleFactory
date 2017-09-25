@@ -7,12 +7,7 @@
 
 
 
-Troll::Troll(
-								ngl::Vec3 _pos,
-								ngl::Vec3 _dir,
-								ngl::Colour _c,
-								const std::string &_shaderName,
-                Emitter *_parent
+Troll::Troll(ngl::Vec3 _pos,ngl::Vec3 _dir,ngl::Colour _c,const std::string &_shaderName,Emitter *_parent
 								) :
 									 Particle(
 														 _pos,
@@ -45,7 +40,9 @@ void Troll::draw() const
   ngl::Transformation t;
   t.setPosition(m_pos);
   t.setRotation(m_rotX,m_rotY,m_rotZ);;
-  ngl::Mat4 MVP=t.getMatrix()*m_parent->getGlobalTransform()*m_parent->getCamera()->getVPMatrix();
+  ngl::Mat4 MVP=m_parent->getCamera()->getVPMatrix() *
+                m_parent->getGlobalTransform() *
+                t.getMatrix();
   shader->setUniform("MVP",MVP);
 
     // get an instance of the VBO primitives for drawing

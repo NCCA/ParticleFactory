@@ -45,7 +45,9 @@ void Torus::draw() const
   ngl::Transformation t;
   t.setPosition(m_pos);
   t.setRotation(m_rotX,m_rotY,m_rotZ);;
-  ngl::Mat4 MVP=t.getMatrix()*m_parent->getGlobalTransform()*m_parent->getCamera()->getVPMatrix();
+  ngl::Mat4 MVP=m_parent->getCamera()->getVPMatrix() *
+                m_parent->getGlobalTransform() *
+                t.getMatrix();
 
   shader->setUniform("MVP",MVP);
 
