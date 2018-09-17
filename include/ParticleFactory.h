@@ -15,6 +15,11 @@
 
 // pre declare the Emitter class as we need this as the parent
 class Emitter;
+struct Camera
+{
+    ngl::Mat4 view;
+    ngl::Mat4 project;
+};
 
 class ParticleFactory
 {
@@ -30,7 +35,7 @@ class ParticleFactory
                               ParticleType _type,
                               ngl::Vec3 _pos,
                               ngl::Vec3 _dir,
-                              ngl::Colour _c,
+                              ngl::Vec4 _c,
                               const std::string &_shaderName,
                               Emitter *_parent
                             );

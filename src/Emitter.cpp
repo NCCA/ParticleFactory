@@ -4,7 +4,7 @@
 #include <typeinfo>
 #include <Sphere.h>
 
-Emitter::Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const ngl::Camera *_cam )
+Emitter::Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const Camera *_cam )
 {
   m_pos=_pos;
   m_numParticles=_numParticles;
@@ -15,7 +15,7 @@ Emitter::Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const ngl::Camera *_
   ngl::Random *rng=ngl::Random::instance();
 
   ngl::Vec3 dir;
-  ngl::Colour c;
+  ngl::Vec4 c;
   int which;
   // resize the particle container for speed
   m_particles.resize(m_numParticles);
@@ -24,7 +24,7 @@ Emitter::Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const ngl::Camera *_
   {
     // get a random direction and colour
     dir=rng->getRandomVec3();
-    c=rng->getRandomColour();
+    c=rng->getRandomColour4();
     // choose which input we want
     which=static_cast<int>(rng->randomPositiveNumber(4));
     switch(which)
@@ -41,7 +41,7 @@ Emitter::Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const ngl::Camera *_
 }
 
 
-Emitter::Emitter( ngl::Vec3 _pos,unsigned int _numParticles, const ngl::Camera *_cam, const ParticleType _type  )
+Emitter::Emitter( ngl::Vec3 _pos,unsigned int _numParticles, const Camera *_cam, const ParticleType _type  )
 {
   m_cam=_cam;
   m_pos=_pos;
@@ -52,13 +52,13 @@ Emitter::Emitter( ngl::Vec3 _pos,unsigned int _numParticles, const ngl::Camera *
   ngl::Random *rng=ngl::Random::instance();
 
   ngl::Vec3 dir;
-  ngl::Colour c;
+  ngl::Vec4 c;
 
   for(auto &particle : m_particles)
   {
     dir=rng->getRandomVec3();
     dir.normalize();
-    c=rng->getRandomColour();
+    c=rng->getRandomColour4();
    // std::unique_ptr<Particle> part( );
     particle.reset(p->CreateParticle(_type,_pos,dir,c,"Phong",this));
   }
@@ -76,9 +76,9 @@ void Emitter::addParticle(ParticleType _type )
   ngl::Random *rng=ngl::Random::instance();
 
   ngl::Vec3 dir;
-  ngl::Colour c;
+  ngl::Vec4 c;
   dir=rng->getRandomVec3();
-  c=rng->getRandomColour();
+  c=rng->getRandomColour4();
   m_particles.push_back(std::unique_ptr<Particle> (p->CreateParticle(_type,m_pos,dir,c,"Phong",this)));
 // we've done with the factory so delete it
   delete p;

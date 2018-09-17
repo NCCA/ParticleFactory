@@ -10,7 +10,7 @@
 Teapot::Teapot(
 								ngl::Vec3 _pos,
 								ngl::Vec3 _dir,
-								ngl::Colour _c,
+                ngl::Vec4 _c,
 								const std::string &_shaderName,
                 Emitter *_parent
 								) :
@@ -45,7 +45,8 @@ void Teapot::draw() const
   ngl::Transformation t;
   t.setPosition(m_pos);
   t.setRotation(m_rotX,m_rotY,m_rotZ);
-  ngl::Mat4 MVP=m_parent->getCamera()->getVPMatrix() *
+  ngl::Mat4 MVP=m_parent->getCamera()->project *
+                m_parent->getCamera()->view *
                 m_parent->getGlobalTransform() *
                 t.getMatrix();
   shader->setUniform("MVP",MVP);

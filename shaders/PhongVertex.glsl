@@ -2,11 +2,11 @@
 /// @brief the current fragment normal for the vert being processed
 out vec3 fragmentNormal;
 /// @brief the vertex passed in
-in vec3 inVert;
+layout(location=0) in vec3 inVert;
 /// @brief the normal passed in
-in vec3 inNormal;
+layout(location=1) in vec3 inNormal;
 /// @brief the in uv
-in vec2 inUV;
+layout(location=2) in vec2 inUV;
 
 // transform matrix values
 uniform mat4 MVP;

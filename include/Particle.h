@@ -1,9 +1,7 @@
 #ifndef PARTICLE_
 #define PARTICLE_
 
-#include <ngl/Camera.h>
 #include <ngl/Vec3.h>
-#include <ngl/Colour.h>
 #include <ngl/Transformation.h>
 #include "ParticleTypeinfo.h"
 
@@ -33,7 +31,7 @@ public:
 	Particle(
            ngl::Vec3 _pos,
            ngl::Vec3 _dir,
-	         ngl::Colour _c,
+           ngl::Vec4 _c,
 					 const std::string &_shaderName,
            Emitter *_parent
 	        );
@@ -54,7 +52,7 @@ protected :
   /// @brief  Direction of the Particle
   ngl::Vec3 m_dir;
   /// @brief   Colour of the Particle
-  ngl::Colour m_colour;
+  ngl::Vec4 m_colour;
 	/// @brief the current life of the particle
   GLfloat m_life;
 	/// @brief the max life of the partice

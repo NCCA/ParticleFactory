@@ -3,7 +3,6 @@
 
 #include "ParticleFactory.h"
 #include "ParticleTypeinfo.h"
-#include <ngl/Camera.h>
 #include <vector>
 #include <memory>
 
@@ -24,13 +23,13 @@ class Emitter
     /// @param[in] _pos the default position of the emitter
     /// @param[in] _numParticles the number of particles to emit
     /// @param[in] _cam a pointer to the global camera
-    Emitter(ngl::Vec3 _pos, unsigned int _numParticles, const ngl::Camera *_cam  );
+    Emitter(ngl::Vec3 _pos, unsigned int _numParticles, const struct Camera *_cam  );
     /// @brief ctor will create all particles of the same type based on _type
     /// @param[in] _pos the default position of the emitter
     /// @param[in] _numParticles the number of particles to emit
     /// @param[in] _cam a pointer to the global camera
     /// @param[in] _type the type of particle to create
-    Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const ngl::Camera *_cam, ParticleType _type  );
+    Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const struct Camera *_cam, ParticleType _type  );
 
     /// @dtor will explicitly call the Particle dtors as they are stored as pointers
     ~Emitter();
@@ -48,17 +47,17 @@ class Emitter
     void updateEmitAngle(GLfloat _a );
     /// @brief accessor for the number of particles stored in the class
     /// @returns the number of particles
-    inline unsigned int getNumParticles()const {return m_numParticles;}
+    unsigned int getNumParticles()const {return m_numParticles;}
     /// @brief get the global camera
-    inline const ngl::Camera *getCamera() const {return m_cam;}
+    const struct Camera *getCamera() const {return m_cam;}
     /// @brief get the global transform stack
     /// @brief a method to clear all particles
     void clearParticles();
     /// @brief get the position
     inline ngl::Vec3 getPos()const {return m_pos;}
     /// @brief set the position
-    inline void setPos(const ngl::Vec3 &_v){m_pos=_v;}
-    inline void setGlobalTransform(const ngl::Mat4 &_t){m_globalMouseTX=_t;}
+    void setPos(const ngl::Vec3 &_v){m_pos=_v;}
+    void setGlobalTransform(const ngl::Mat4 &_t){m_globalMouseTX=_t;}
     inline const ngl::Mat4 & getGlobalTransform() const { return m_globalMouseTX;}
 
 
@@ -68,7 +67,7 @@ class Emitter
     std::vector < std::unique_ptr<Particle>> m_particles;
     /// @brief a pointer to the current camera, this is used for accesing the VP matrix to load to the
     /// shader
-    const ngl::Camera *m_cam;
+    const struct Camera *m_cam;
     /// @brief the number of particles
     unsigned int m_numParticles;
     /// @brief the position of the emitter this is passed to the particle for creation

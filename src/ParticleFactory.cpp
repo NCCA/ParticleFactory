@@ -8,7 +8,7 @@ Particle * ParticleFactory::CreateParticle(
                                             ParticleType _type,
                                             ngl::Vec3 _pos,
                                             ngl::Vec3 _dir,
-                                            ngl::Colour _c,
+                                            ngl::Vec4 _c,
                                             const std::string &_shaderName,
                                             Emitter *_parent
                                           )
