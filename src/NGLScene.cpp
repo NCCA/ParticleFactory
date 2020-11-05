@@ -32,8 +32,7 @@ void NGLScene::initializeGL()
 {
   // we must call this first before any other GL commands to load and link the
   // gl commands from the lib, if this is not done program will crash
-  ngl::NGLInit::instance();
-
+  ngl::NGLInit::initialize();
   glClearColor(0.4f, 0.4f, 0.4f, 1.0f);			   // Grey Background
   // enable depth testing for drawing
   glEnable(GL_DEPTH_TEST);
@@ -47,57 +46,51 @@ void NGLScene::initializeGL()
   ngl::Vec3 up(0,1,0);
   m_cam.view=ngl::lookAt(from,to,up);
   m_cam.project=ngl::perspective(45,720.0f/576.0f,0.5f,150);
-  // now to load the shader and set the values
-  // grab an instance of shader manager
-  // now to load the shader and set the values
-  // grab an instance of shader manager
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
   // we are creating a shader called Phong
-  shader->createShaderProgram("Phong");
+  ngl::ShaderLib::createShaderProgram("Phong");
   // now we are going to create empty shaders for Frag and Vert
-  shader->attachShader("PhongVertex",ngl::ShaderType::VERTEX);
-  shader->attachShader("PhongFragment",ngl::ShaderType::FRAGMENT);
+  ngl::ShaderLib::attachShader("PhongVertex",ngl::ShaderType::VERTEX);
+  ngl::ShaderLib::attachShader("PhongFragment",ngl::ShaderType::FRAGMENT);
   // attach the source
-  shader->loadShaderSource("PhongVertex","shaders/PhongVertex.glsl");
-  shader->loadShaderSource("PhongFragment","shaders/PhongFragment.glsl");
+  ngl::ShaderLib::loadShaderSource("PhongVertex","shaders/PhongVertex.glsl");
+  ngl::ShaderLib::loadShaderSource("PhongFragment","shaders/PhongFragment.glsl");
   // compile the shaders
-  shader->compileShader("PhongVertex");
-  shader->compileShader("PhongFragment");
+  ngl::ShaderLib::compileShader("PhongVertex");
+  ngl::ShaderLib::compileShader("PhongFragment");
   // add them to the program
-  shader->attachShaderToProgram("Phong","PhongVertex");
-  shader->attachShaderToProgram("Phong","PhongFragment");
+  ngl::ShaderLib::attachShaderToProgram("Phong","PhongVertex");
+  ngl::ShaderLib::attachShaderToProgram("Phong","PhongFragment");
   // now bind the shader attributes for most NGL primitives we use the following
   // layout attribute 0 is the vertex data (x,y,z)
-  shader->bindAttribute("Phong",0,"inVert");
+  ngl::ShaderLib::bindAttribute("Phong",0,"inVert");
   // attribute 1 is the UV data u,v (if present)
-  shader->bindAttribute("Phong",1,"inUV");
+  ngl::ShaderLib::bindAttribute("Phong",1,"inUV");
   // attribute 2 are the normals x,y,z
-  shader->bindAttribute("Phong",2,"inNormal");
+  ngl::ShaderLib::bindAttribute("Phong",2,"inNormal");
 
   // now we have associated this data we can link the shader
-  shader->linkProgramObject("Phong");
+  ngl::ShaderLib::linkProgramObject("Phong");
   // and make it active ready to load values
-  (*shader)["Phong"]->use();
+  ngl::ShaderLib::use("Phong");
   ngl::Vec4 lightPos(-2.0f,5.0f,2.0f,0.0f);
-  shader->setUniform("light.position",lightPos);
-  shader->setUniform("light.ambient",0.0f,0.0f,0.0f,1.0f);
-  shader->setUniform("light.diffuse",1.0f,1.0f,1.0f,1.0f);
-  shader->setUniform("light.specular",0.8f,0.8f,0.8f,1.0f);
+  ngl::ShaderLib::setUniform("light.position",lightPos);
+  ngl::ShaderLib::setUniform("light.ambient",0.0f,0.0f,0.0f,1.0f);
+  ngl::ShaderLib::setUniform("light.diffuse",1.0f,1.0f,1.0f,1.0f);
+  ngl::ShaderLib::setUniform("light.specular",0.8f,0.8f,0.8f,1.0f);
   // gold like phong material
-  shader->setUniform("material.ambient",0.274725f,0.1995f,0.0745f,0.0f);
-  shader->setUniform("material.diffuse",0.75164f,0.60648f,0.22648f,0.0f);
-  shader->setUniform("material.specular",0.628281f,0.555802f,0.3666065f,0.0f);
-  shader->setUniform("material.shininess",51.2f);
-  shader->setUniform("viewerPos",from);
+  ngl::ShaderLib::setUniform("material.ambient",0.274725f,0.1995f,0.0745f,0.0f);
+  ngl::ShaderLib::setUniform("material.diffuse",0.75164f,0.60648f,0.22648f,0.0f);
+  ngl::ShaderLib::setUniform("material.specular",0.628281f,0.555802f,0.3666065f,0.0f);
+  ngl::ShaderLib::setUniform("material.shininess",51.2f);
+  ngl::ShaderLib::setUniform("viewerPos",from);
   glEnable(GL_DEPTH_TEST); // for removal of hidden surfaces
 
-  ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
-  prim->createSphere("sphere",1.0,20);
+  ngl::VAOPrimitives::createSphere("sphere",1.0,20);
 
-  prim->createTorus("torus",0.2f,0.8f,20,20);
+  ngl::VAOPrimitives::createTorus("torus",0.2f,0.8f,20,20);
   // create the default particle inital position
-  m_emitter.reset( new Emitter(m_emitterPos,1000,&m_cam) );
-  m_text.reset( new ngl::Text(QFont("Arial",14)));
+  m_emitter=std::make_unique<Emitter>(m_emitterPos,1000,&m_cam) ;
+  m_text=std::make_unique<ngl::Text>("fonts/Arial.ttf",14);
   m_text->setScreenSize(width(),height());
   startTimer(40);
 
@@ -108,11 +101,9 @@ void NGLScene::initializeGL()
 
 void NGLScene::paintGL()
 {
-  // grab an instance of the shader manager
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
   glViewport(0,0,m_win.width,m_win.height);
   // clear the screen and depth buffer
-  shader->use("Phong");
+  ngl::ShaderLib::use("Phong");
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   // Rotation based on the mouse position for our global transform
@@ -129,14 +120,12 @@ void NGLScene::paintGL()
   m_mouseGlobalTX.m_m[3][2] = m_modelPos.m_z;
   m_emitter->setGlobalTransform(m_mouseGlobalTX);
   m_emitter->draw();
-  QString text;
-  text.sprintf("number of particles %d",m_emitter->getNumParticles());
   m_text->setColour(1,1,1);
-  m_text->renderText(10,10,text);
-  m_text->renderText(10,30,QString("1 add Sphere 2 add Teapot"));
-  m_text->renderText(10,50,QString("r remove last particle"));
-  m_text->renderText(10,70,QString("z,x,c,v change emit angle of sphere"));
-  m_text->renderText(10,90,QString("Space clears all particles"));
+  m_text->renderText(10,700,fmt::format("number of particles {}",m_emitter->getNumParticles()));
+  m_text->renderText(10,680,"1 add Sphere 2 add Teapot");
+  m_text->renderText(10,660,"r remove last particle");
+  m_text->renderText(10,640,"z,x,c,v change emit angle of sphere");
+  m_text->renderText(10,620,"Space clears all particles");
 }
 
 void NGLScene::addParticles( int _type)

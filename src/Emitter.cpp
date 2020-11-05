@@ -12,8 +12,7 @@ Emitter::Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const Camera *_cam )
   // create our render factory
   std::unique_ptr<ParticleFactory> p(  new  ParticleFactory);
   // grab an instance of the random generator
-  ngl::Random *rng=ngl::Random::instance();
-
+  
   ngl::Vec3 dir;
   ngl::Vec4 c;
   int which;
@@ -23,10 +22,10 @@ Emitter::Emitter(ngl::Vec3 _pos, unsigned int _numParticles,const Camera *_cam )
   for(auto &particle : m_particles)
   {
     // get a random direction and colour
-    dir=rng->getRandomVec3();
-    c=rng->getRandomColour4();
+    dir=ngl::Random::getRandomVec3();
+    c=ngl::Random::getRandomColour4();
     // choose which input we want
-    which=static_cast<int>(rng->randomPositiveNumber(4));
+    which=static_cast<int>(ngl::Random::randomPositiveNumber(4));
     switch(which)
     {
     // use the factory to create a new particle
@@ -47,23 +46,18 @@ Emitter::Emitter( ngl::Vec3 _pos,unsigned int _numParticles, const Camera *_cam,
   m_pos=_pos;
   m_numParticles=_numParticles;
   // create our render factory
-  ParticleFactory *p = new  ParticleFactory;
-
-  ngl::Random *rng=ngl::Random::instance();
-
+  ParticleFactory p;
   ngl::Vec3 dir;
   ngl::Vec4 c;
 
   for(auto &particle : m_particles)
   {
-    dir=rng->getRandomVec3();
+    dir=ngl::Random::getRandomVec3();
     dir.normalize();
-    c=rng->getRandomColour4();
-   // std::unique_ptr<Particle> part( );
-    particle.reset(p->CreateParticle(_type,_pos,dir,c,"Phong",this));
+    c=ngl::Random::getRandomColour4();
+   
+    particle.reset(p.CreateParticle(_type,_pos,dir,c,"Phong",this));
   }
-// we've done with the factory so delete it
-  delete p;
 
 }
 
@@ -71,17 +65,15 @@ Emitter::Emitter( ngl::Vec3 _pos,unsigned int _numParticles, const Camera *_cam,
 void Emitter::addParticle(ParticleType _type )
 {
   // create our render factory
-  ParticleFactory *p = new  ParticleFactory;
+  ParticleFactory p;
 
-  ngl::Random *rng=ngl::Random::instance();
-
+  
   ngl::Vec3 dir;
   ngl::Vec4 c;
-  dir=rng->getRandomVec3();
-  c=rng->getRandomColour4();
-  m_particles.push_back(std::unique_ptr<Particle> (p->CreateParticle(_type,m_pos,dir,c,"Phong",this)));
+  dir=ngl::Random::getRandomVec3();
+  c=ngl::Random::getRandomColour4();
+  m_particles.push_back(std::unique_ptr<Particle> (p.CreateParticle(_type,m_pos,dir,c,"Phong",this)));
 // we've done with the factory so delete it
-  delete p;
   ++m_numParticles;
 }
 
@@ -121,18 +113,6 @@ void Emitter::update()
 }
 void Emitter::updateEmitAngle(GLfloat _a)
 {
-  /*
-  // in this case only sphere has a set emit angle
-  for(unsigned int i=0; i<m_numParticles; ++i)
-  {
-    // so if it is a sphere
-    if(m_particles[i]->getType()==SPHERE)
-    {
-      // now we have to cast to a Sphere to call the setEmitAngle method
-      dynamic_cast<Sphere *>(m_particles[i])->setEmitAngle(_a);
-    }
-  }
-*/
 
   // in this case only sphere has a set emit angle
   for(auto &p : m_particles)

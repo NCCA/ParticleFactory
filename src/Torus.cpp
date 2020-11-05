@@ -22,15 +22,14 @@ Torus::Torus(
                              _parent
 														)
 {
-	ngl::Random *rng=ngl::Random::instance();
 
-	m_rotX=rng->randomNumber(360);
-	m_rotY=rng->randomNumber(360);
-	m_rotZ=rng->randomNumber(360);
+	m_rotX=ngl::Random::randomNumber(360);
+	m_rotY=ngl::Random::randomNumber(360);
+	m_rotZ=ngl::Random::randomNumber(360);
 
-	m_rotUpdateX=rng->randomNumber(10);
-	m_rotUpdateY=rng->randomNumber(10);
-	m_rotUpdateZ=rng->randomNumber(10);
+	m_rotUpdateX=ngl::Random::randomNumber(10);
+	m_rotUpdateY=ngl::Random::randomNumber(10);
+	m_rotUpdateZ=ngl::Random::randomNumber(10);
 
 }
 
@@ -38,9 +37,8 @@ Torus::Torus(
 void Torus::draw() const
 {
 
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  (*shader)[m_shaderName]->use();
-  shader->setUniform("Colour",m_colour);
+  ngl::ShaderLib::use(m_shaderName);
+  ngl::ShaderLib::setUniform("Colour",m_colour);
 
   ngl::Transformation t;
   t.setPosition(m_pos);
@@ -50,12 +48,9 @@ void Torus::draw() const
                 m_parent->getGlobalTransform() *
                 t.getMatrix();
 
-  shader->setUniform("MVP",MVP);
+  ngl::ShaderLib::setUniform("MVP",MVP);
 
-  // get an instance of the VBO primitives for drawing
-  ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
-  // draw the sphere
-  prim->draw("torus");
+  ngl::VAOPrimitives::draw("torus");
 
 }
 
@@ -63,7 +58,6 @@ void Torus::draw() const
 void Torus::update()
 {
 // more the particle by adding the Direction vector to the position
-	ngl::Random *rng=ngl::Random::instance();
 
   m_pos+=m_dir;
   ++m_life;
@@ -76,14 +70,14 @@ void Torus::update()
     m_life=0.0;
     m_pos=m_parent->getPos();
 
-    m_maxLife=rng->randomPositiveNumber(80);
+    m_maxLife=ngl::Random::randomPositiveNumber(80);
 
-		m_rotX=rng->randomNumber(360);
-		m_rotUpdateX=rng->randomPositiveNumber(10);
-		m_rotY=rng->randomNumber(360);
-		m_rotUpdateY=rng->randomPositiveNumber(10);
-		m_rotZ=rng->randomNumber(360);
-		m_rotUpdateZ=rng->randomPositiveNumber(10);
+		m_rotX=ngl::Random::randomNumber(360);
+		m_rotUpdateX=ngl::Random::randomPositiveNumber(10);
+		m_rotY=ngl::Random::randomNumber(360);
+		m_rotUpdateY=ngl::Random::randomPositiveNumber(10);
+		m_rotZ=ngl::Random::randomNumber(360);
+		m_rotUpdateZ=ngl::Random::randomPositiveNumber(10);
 	}
 }
 

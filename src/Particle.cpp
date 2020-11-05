@@ -1,6 +1,6 @@
 #include "Particle.h"
 #include <ngl/Random.h>
-
+#include <iostream>
 Particle::Particle(
                       ngl::Vec3 _pos,
                       ngl::Vec3 _dir,
@@ -14,9 +14,8 @@ Particle::Particle(
 	m_dir=_dir;
 	m_colour=_c;
   // create some random life values
-  ngl::Random *rng=ngl::Random::instance();
 
-  m_maxLife=rng->randomNumber(200)+40;
+  m_maxLife=ngl::Random::randomNumber(200)+40;
 	m_life=0.0;
 	m_shaderName=_shaderName;
   m_parent=_parent;

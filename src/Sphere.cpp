@@ -25,24 +25,22 @@ Sphere::Sphere(
                           )
 {
   m_emitAngle=360.0f;
-	ngl::Random *rng=ngl::Random::instance();
   // get the angles for emission
-  GLfloat theta=ngl::radians(rng->randomNumber(m_emitAngle));
-  GLfloat phi=ngl::radians(rng->randomNumber(m_emitAngle));
+  GLfloat theta=ngl::radians(ngl::Random::randomNumber(m_emitAngle));
+  GLfloat phi=ngl::radians(ngl::Random::randomNumber(m_emitAngle));
   // set the
   m_dir.m_x=sinf(theta)*cosf(phi);
   m_dir.m_y=sinf(theta)*sinf(phi);
   m_dir.m_z=cosf(theta);
   m_dir.normalize();
-  m_radius=rng->randomPositiveNumber(1.2f)+0.1f;
+  m_radius=ngl::Random::randomPositiveNumber(1.2f)+0.1f;
 }
 
 
 void Sphere::draw() const
 {
-  ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-  (*shader)[m_shaderName]->use();
-  shader->setUniform("Colour",m_colour);
+  ngl::ShaderLib::use(m_shaderName);
+  ngl::ShaderLib::setUniform("Colour",m_colour);
   ngl::Transformation t;
   t.setPosition(m_pos);
   t.setScale(m_radius,m_radius,m_radius);
@@ -50,11 +48,9 @@ void Sphere::draw() const
                 m_parent->getCamera()->view *
                 m_parent->getGlobalTransform() *
                 t.getMatrix();
-  shader->setUniform("MVP",MVP);
-  // get an instance of the VBO primitives for drawing
-  ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
+  ngl::ShaderLib::setUniform("MVP",MVP);
   // draw the sphere
-  prim->draw("sphere");
+  ngl::VAOPrimitives::draw("sphere");
 
 }
 
@@ -69,16 +65,15 @@ void Sphere::update()
 	{
     m_life=0.0;
     m_pos=m_parent->getPos();
-		ngl::Random *rng=ngl::Random::instance();
 
-    m_maxLife=rng->randomPositiveNumber(80);
-    GLfloat theta=ngl::radians(rng->randomNumber(m_emitAngle));
-    GLfloat phi=ngl::radians(rng->randomNumber(m_emitAngle));
+    m_maxLife=ngl::Random::randomPositiveNumber(80);
+    GLfloat theta=ngl::radians(ngl::Random::randomNumber(m_emitAngle));
+    GLfloat phi=ngl::radians(ngl::Random::randomNumber(m_emitAngle));
     m_dir.m_x=sinf(theta)*cosf(phi);
     m_dir.m_y=sinf(theta)*cosf(theta);
     m_dir.m_z=cosf(theta);
     m_dir.normalize();
-    m_radius=rng->randomPositiveNumber(1.2f)+0.01f;
+    m_radius=ngl::Random::randomPositiveNumber(1.2f)+0.01f;
 
 	}
 }
