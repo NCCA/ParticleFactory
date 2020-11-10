@@ -82,6 +82,6 @@ void Sphere::update()
 
  Sphere::~Sphere()
 {
-   std::cout<<"Sphere dtor\n";
+  // std::cout<<"Sphere dtor\n";
 }
 

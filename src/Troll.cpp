@@ -77,6 +77,6 @@ void Troll::update()
 
 Troll::~Troll()
 {
-	std::cout<<"Troll dtor\n";
+	//std::cout<<"Troll dtor\n";
 }
 

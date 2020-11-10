@@ -23,6 +23,6 @@ Particle::Particle(
 
 Particle::~Particle()
 {
-  std::cout<<"particle  dtor\n";
+  //std::cout<<"particle  dtor\n";
 }
 

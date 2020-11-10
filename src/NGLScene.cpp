@@ -77,12 +77,6 @@ void NGLScene::initializeGL()
   ngl::ShaderLib::setUniform("light.ambient",0.0f,0.0f,0.0f,1.0f);
   ngl::ShaderLib::setUniform("light.diffuse",1.0f,1.0f,1.0f,1.0f);
   ngl::ShaderLib::setUniform("light.specular",0.8f,0.8f,0.8f,1.0f);
-  // gold like phong material
-  ngl::ShaderLib::setUniform("material.ambient",0.274725f,0.1995f,0.0745f,0.0f);
-  ngl::ShaderLib::setUniform("material.diffuse",0.75164f,0.60648f,0.22648f,0.0f);
-  ngl::ShaderLib::setUniform("material.specular",0.628281f,0.555802f,0.3666065f,0.0f);
-  ngl::ShaderLib::setUniform("material.shininess",51.2f);
-  ngl::ShaderLib::setUniform("viewerPos",from);
   glEnable(GL_DEPTH_TEST); // for removal of hidden surfaces
 
   ngl::VAOPrimitives::createSphere("sphere",1.0,20);

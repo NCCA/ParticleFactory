@@ -81,6 +81,6 @@ void Teapot::update()
 
 Teapot::~Teapot()
 {
-  std::cout<<"Teapot dtor\n";
+  //std::cout<<"Teapot dtor\n";
 }
 

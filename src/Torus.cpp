@@ -84,6 +84,6 @@ void Torus::update()
 
 Torus::~Torus()
 {
-  std::cout<<"Torus dtor\n";
+ // std::cout<<"Torus dtor\n";
 }
 
