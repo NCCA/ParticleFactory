@@ -87,9 +87,9 @@ target_link_libraries(${TargetName} PRIVATE ${PROJECT_LINK_LIBS}  Qt5::Widgets f
 add_custom_target(CopyShaders ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders
-		${CMAKE_BINARY_DIR}/shaders
-		
+		$<TARGET_FILE_DIR:${TargetName}>/shaders
+
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/fonts
-    ${CMAKE_BINARY_DIR}/fonts
+      $<TARGET_FILE_DIR:${TargetName}>/fonts
     ) 
