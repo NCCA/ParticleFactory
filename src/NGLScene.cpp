@@ -6,7 +6,7 @@
 #include <ngl/VAOPrimitives.h>
 #include <ngl/ShaderLib.h>
 #include <ngl/Image.h>
-
+#include <iostream>
 NGLScene::NGLScene()
 {
   setTitle("Qt5 Simple NGL Demo");
